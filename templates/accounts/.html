@@ -1,0 +1,21 @@
+{% extends "accounts/main.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="content-section">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Reset Password</legend>
+            {{form|crispy}}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Request Password Reset</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

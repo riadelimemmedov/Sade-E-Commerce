@@ -1,0 +1,55 @@
+{% extends "accounts/main.html" %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+</head>
+
+<style>
+    .sekil{
+        max-width:200px;
+        max-height: 200px;
+        margin: 0 auto;/* yeni yuxari ve asagidan 0px sag ve solu ise avtomatik */
+        border-radius:50%;
+    }
+</style>
+
+<body>
+    
+    <br>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card card-body">
+            <a class="btn btn-warning" href="{% url 'home' %}"> &#8592; Back to Profile</a>
+            <hr>
+            <h3 style="text-align: center">Account Settings</h3>
+            <hr>
+            {% if request.user.customer.profile_pic %}<!-- Eger hal hazirdaki istifadecinin profil sekli varsa ona yuklesin request.user.customer.profile_pic.url vasiteso;e eger yoxdursa else girsin -->
+                <img class="sekil" src="{{request.user.customer.profile_pic.url}}" alt="">
+            {% else %}
+                <img class="sekil" src="{% static 'images/profile2.png' %}" alt="">
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form method="POST" enctype="multipart/form-data"><!-- enctype yazmlaisan eger sekil yukleyirsensese form vasitesile-->
+                {% csrf_token %}
+                {{form.as_p}}
+                <input id="btn_save" type="submit" class="btn btn-outline-primary btn-lg btn-block" name="Update Information">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+{% endblock content %}

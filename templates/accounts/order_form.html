@@ -1,0 +1,22 @@
+{% extends "accounts/main.html"%}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+    
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h3>Create Order</h3>
+        <hr>
+            <form  method="POST"><!-- create ve updatede action ehtiyac yoxdur -->
+                {% csrf_token %}<!-- !csrf_token vasitesile datalar guvenli bir sekilde gonderilir -->  
+                {{form|crispy}}
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
+    </div>
+</div>
+{% endblock content %}
+
+

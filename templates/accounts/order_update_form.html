@@ -1,0 +1,18 @@
+{% extends "accounts/main.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>Update Order</h3>
+            <hr>
+            <form method="POST"><!-- create ve update ye action lazim deyil formlarda  -->
+                {% csrf_token %}
+                {% crispy form %}
+                <input class="btn btn-success" type="submit" value="Update">
+            </form>
+        </div>
+    </div>
+{% endblock content %}

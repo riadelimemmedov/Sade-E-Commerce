@@ -1,0 +1,42 @@
+{%  extends 'accounts/main.html' %}
+{% block content %}
+{%  include 'accounts/status.html' %}
+
+{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<strong>{{message}}</strong>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	{% endfor %}
+{% endif %}
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Product</th>
+					<th>Note</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+				</tr>
+
+				{% for order in orders %}
+
+				<tr>
+					<td>{{order.product}}</td>
+					<td>{{order.note}}</td>
+					<td>{{order.date_created}}</td>
+					<td>{{order.status}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,141 @@
+{% extends 'accounts/main.html' %}
+
+{% load static %}
+<!-- vaxti gosterir yeni nece gun evvel elave oldunfugunu filan-->
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+</head>
+
+<body>
+    {{ name }}
+    <div class="jumbotron jumbotron-fluid bg-secondary">
+        <div class="container">
+            <h1 class="display-4"
+                style="font-size:bold;border: 3px solid black;border-radius: 5px;outline: none;padding-left: 5px;">
+                Market</h1>
+            <p class="lead">Thi see products</p>
+            <img src="{% static 'images/logo.png' %}" alt="">
+        </div>
+    </div>
+
+
+    <style>
+        #masin {
+            text-decoration: underline;
+            color: #4479A1;
+            font-size: 20px;
+            transition: color 0.5s
+        }
+
+        #masin:hover {
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        #neyse {
+            border: 1px solid #4479a1;
+            border-radius: 5px;
+            outline: none;
+            padding: 10px;
+        }
+
+        button {
+            margin-left: 20px;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-md-12">
+            {% for mal in netice %}
+            <div class="card mb-3">
+                <div class="row" style="background-color: #18191A;">
+                    <div class="col-md-3">
+                        <img class="card-img" src="{{mal.image.url}}" alt="">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <a id="masin" href="{% url 'home' %}">{{ mal.name }}</a>
+                            </div>
+                            <p class="card-text" style="color:#FFFFFF">
+                                {{ mal.description }}
+                            </p>
+                            <p class="card-text" id="neyse">
+                                <small class="text-muted"
+                                    style="color: #FFFFFF;">{{ mal.date_created | timesince }}</small>
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"
+                            autocomplete="off">
+                            {{mal.price}}
+                        </button>
+                    </div>
+                </div>
+            </div><!-- eger film varsa -->
+            {% endfor %}
+
+            <style>
+                .backtotop {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 30px;
+                }
+            </style>
+
+            <footer class="text-muted">
+                <div class="container">
+                    <p class="float-right">
+                        <a href="#" class="backtotop btn btn-primary">Back To Top</a>
+                    </p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(
+        function () { //yeni window pencere objem scrool olnada adagi bir funksiya islesin yeni nese bir seyler olsun
+                if ($(window).scrollTop() >
+                    300) { //yeni yuxaridan 1000px li kecibse scroolbar secilen buton fadeIn olsun yeni gorunen olsun
+                    $('.backtotop')
+                .fadeIn(); //fadeIn gorunen,yeni scroolun px deyeri 100px i kecibse butonu goster
+                } //burda $ ile secende jqueyde window osel bir js ozelliyi oldugu ucun onu string icinde yazma hec vaxt yadindan cixmasin a yazma string icinde 
+                else {
+                    $('.backtotop').fadeOut(); //fadeOut gorunmez//eger 100px kecmeyibse butonu gosterme
+                }
+                //console.log($(this).scrollTop())//yeni yuxaridan asagi cekdikde olan px derecesini sayir
+            })
+
+        })
+
+        //Diqqet olunmasi gerekenlerden biride jqueryde scroll ile scrollTop ozellikleri ferqli isleri gorurler
+        //scrool ozelliyi scrool olanda bas veren ozelliklerdir
+        //scroolTop ozelliyi ise px deyeri esasen if else istifade olunur nece px scrooldan sonra bas veren hadiseleri nezere alir
+
+        $(document).ready(function () {
+            $('.backtotop').click(function () {
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 700) //yeni butona basanda en basa ceksin animasiya formasindaki scrooTopunu
+                return false; //burda bunun yazilmasindaki sebeb button ozelliyi melumat gondemrek ucun istifade olunur biz ise link formasinda istifade ettiyimiz ucun disable etdik bu ozelliyi return false yazilis ile
+            })
+        })
+    </script>
+</body>
+
+</html>
+
+
+{% endblock %}

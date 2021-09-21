@@ -1,0 +1,47 @@
+{% extends "accounts/main.html" %}<!-- yeni main.html uzantisinin bura getirirse extends vasitesile -->
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+<body>
+    <br>
+<style>
+    #product{
+        padding-bottom: 5px;
+    }
+</style>
+    <div class="row">
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Products</h5>
+            </div>
+            <div class="card card-body">
+                <table class="table" >
+                    <hr>
+                    <tr id="product">
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                    </tr>
+                    {% for mal in netice %}
+                        <tr>
+                            <td>{{mal.name}}</td>
+                            <td>{{mal.category}}</td>
+                            <td>{{mal.price}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>  
+        </div>
+        
+    </div>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% load static %}
+
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img src="{% static 'images/logo.png' %}" alt="">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'product' %}">Products</a>
+            </li>
+        </ul>
+    </div>
+</nav> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <img src="{% static 'images/logo.png' %}" alt="">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if request.user.is_staff %}<!-- ! eger hal hazirdaki istifadeci yetkili birisidirse yeni admindirse if e gir -->
+                <li class="nav-item {% if '/' == request.path %} active {% endif %}"><!-- home hisseisni '/' == request.path seklinden yazilmalisidre difgerleri ise meslen car in request.path yeni car url i hal hazirdaki url dedirsen-->
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">Dashboard</span></a>
+                </li>
+                <li class="nav-item {% if 'product' in request.path %} active {% endif %}">
+                    <a class="nav-link" href="{% url 'product' %}">Products</a>
+                </li><!-- is_staff o demekdirki yeni yetkili biridir yeni admindir meleselen bele -->
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'account' %}">Settings</a>
+                </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="GET">
+            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search" autocomplete="on">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+
+    <style>
+        .mk{
+            font-size:bold;
+            text-decoration: none;
+            color: #88b2f8;
+            transition:color 0.3s
+        }
+        .mk:hover{
+            color: #fff;
+        }
+        .hello-msg{
+            color: #fff;
+            
+        }
+
+    </style>
+
+    {% if request.user.is_authenticated %}<!-- ?Eger istifadeci giris edibse if e gir  -->
+        <span style="padding-left: 5px;" class="hello-msg">Hello, {{request.user.username}}</span>
+        <span style="padding-left:10px" class="hello-msg"><a class="mk" href="{% url 'logout' %}">Logout</a></span>
+
+    {% else %}<!-- ?Yox eger istifadeci giris etmeyibse else gir-->
+        <span style="padding-left: 5px;" class='hello-msg'><a class="mk" href="{% url 'login' %}">Login</a></span>
+        <span  style="padding-left:10px" class="hello-msg"><a class="mk" href="{% url 'logout' %}">Register</a></span>
+    {% endif %}
+</nav>

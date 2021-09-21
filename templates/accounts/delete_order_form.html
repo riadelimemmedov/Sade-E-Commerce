@@ -1,0 +1,41 @@
+{% extends "accounts/main.html" %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+{% block content %}
+<!-- 
+<div class="card">
+    <div class="card-header">
+        Delete Order
+    </div>
+    <div class="card-body">
+        <form action="{% url 'delete_order' silinen_sifaris.id %}" method="POST">
+            {% csrf_token %}
+            <h5 class="card-title">{{silinen_sifaris.product}}</h5>
+            <p class="card-text">Are you sure you want to delete?</p>
+            <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
+            <input class="btn btn-danger" type="submit" value="Confirm">
+        </form>
+    </div>
+</div> -->
+<div class="card text-center">
+        <div class="card-header">
+            Delete Order
+        </div>
+        <form action="{% url 'delete_order' silinen_sifaris.id  %}" method="POST">
+            {% csrf_token %}
+            <div class="card-body">
+                <h5 class="card-title">{{silinen_sifaris.product}}</h5>
+                <p class="card-text">{{silinen_sifaris.status}}</p>
+                <p style="color: royalblue;">Are you sure you want to delete ?</p>
+                <a href="{% url 'home' %}" class="btn btn-dark">Cancel</a>
+                <input class="btn btn-danger" type="submit" value="Confirm">
+            </div>
+            <div class="card-footer text-muted">
+                <p>{{silinen_sifaris.date_created|timesince}} Ago</p>
+            </div>
+</form>
+</div>
+
+{% endblock content %}
